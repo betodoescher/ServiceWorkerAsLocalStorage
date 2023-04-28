@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Service Worker como Local Storage</title>
+    <script src="sw.js"></script>
+
+    <script>
+        async function saveToken() {
+            const token = "meu-token-123";
+            console.log("🚀 ~ file: index.html:10 ~ saveToken ~ token:", token)
+            await setToken(token);
+            console.log("Token salvo no service worker");
+        }
+
+        async function loadToken() {
+            const token = await getToken();
+            console.log("Token recuperado do service worker:", token);
+        }
+    </script>
+</head>
+
+<body>
+    <button onclick="saveToken()">Salvar Token</button>
+    <button onclick="loadToken()">Carregar Token</button>
+
+    <script>
+        // Registrar o service worker
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker
+                .register("sw.js")
+                .then(() => console.log("Service Worker registrado"));
+        }
+    </script>
+</body>
+
+</html>
